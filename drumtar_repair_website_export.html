@@ -1,0 +1,1792 @@
+<!DOCTYPE html>
+<html lang="ru" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DrumTar Repair — Ремонт гитар и барабанов в Алматы</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        rock: {
+                            900: '#0F0D0E',
+                            800: '#181517',
+                            700: '#262225',
+                            600: '#383236',
+                        },
+                        amberGold: '#F59E0B',
+                        flame: '#EF4444',
+                    },
+                    fontFamily: {
+                        heading: ['Cinzel', 'serif'],
+                        sans: ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .gold-gradient-text {
+            background: linear-gradient(135deg, #FBBF24 0%, #D97706 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .wood-pattern {
+            background-color: #121011;
+            background-image: radial-gradient(#262225 1px, transparent 0);
+            background-size: 24px 24px;
+        }
+        .glow-orange {
+            box-shadow: 0 0 25px -5px rgba(245, 158, 11, 0.25);
+        }
+        .glass-card {
+            background: rgba(24, 21, 23, 0.85);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        .glass-card:hover {
+            border-color: rgba(245, 158, 11, 0.4);
+            box-shadow: 0 10px 30px -10px rgba(245, 158, 11, 0.15);
+        }
+        .tab-btn {
+            transition: all 0.3s ease;
+        }
+        .tab-btn.active {
+            border-color: #F59E0B;
+            color: #F59E0B;
+            background-color: rgba(245, 158, 11, 0.12);
+            box-shadow: 0 4px 12px rgba(245, 158, 11, 0.15);
+        }
+        #chatMessages::-webkit-scrollbar {
+            width: 4px;
+        }
+        #chatMessages::-webkit-scrollbar-thumb {
+            background: #383236;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body class="bg-rock-900 text-gray-200 font-sans antialiased min-h-screen flex flex-col wood-pattern">
+
+    <!-- АКЦИОННЫЙ БАННЕР (ПОКАЗЫВАЕТСЯ ТОЛЬКО ПЕРВЫЙ РАЗ) -->
+    <div id="promoBanner" class="bg-gradient-to-r from-amber-600 via-red-600 to-amber-600 text-white py-2 px-4 text-center font-semibold text-sm md:text-base shadow-md hidden items-center justify-center gap-2">
+        <i class="fa-solid fa-fire animate-bounce"></i>
+        <span data-i18n="promoText">АКЦИЯ: <strong>-20% Скидка</strong> на первый заказ услуг по настройке и ремонту инструментов!</span>
+        <i class="fa-solid fa-fire animate-bounce"></i>
+    </div>
+
+    <!-- НАВИГАЦИЯ / HEADER -->
+    <header class="sticky top-0 z-40 bg-rock-800/90 backdrop-blur-md border-b border-rock-700">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 flex items-center justify-between">
+            <a href="#" class="flex items-center gap-3">
+                <div>
+                    <span class="font-heading font-extrabold text-xl md:text-2xl tracking-wider text-white">DrumTar <span class="text-amberGold">Repair</span></span>
+                    <p class="text-xs text-gray-400 hidden sm:block" data-i18n="subtitleHeader">Мастерская гитар и барабанов</p>
+                </div>
+            </a>
+
+            <!-- Выбор языков мира -->
+            <div class="flex items-center gap-2">
+                <select id="languageSelector" onchange="changeLanguage(this.value)" class="bg-rock-900 border border-rock-700 text-amberGold text-xs font-semibold px-2.5 py-1.5 rounded-lg focus:outline-none focus:border-amberGold cursor-pointer">
+                    <option value="ru">🇷🇺 Русский</option>
+                    <option value="en">🇬🇧 English</option>
+                    <option value="kk">🇰🇿 Қазақша</option>
+                    <option value="es">🇪🇸 Español</option>
+                    <option value="fr">🇫🇷 Français</option>
+                    <option value="de">🇩🇪 Deutsch</option>
+                    <option value="zh">🇨🇳 中文</option>
+                    <option value="ja">🇯🇵 日本語</option>
+                    <option value="ko">🇰🇷 한국어</option>
+                    <option value="tr">🇹🇷 Türkçe</option>
+                    <option value="it">🇮🇹 Italiano</option>
+                    <option value="pt">🇵🇹 Português</option>
+                    <option value="ar">🇸🇦 العربية</option>
+                    <option value="hi">🇮🇳 हिन्दी</option>
+                    <option value="uk">🇺🇦 Українська</option>
+                    <option value="pl">🇵🇱 Polski</option>
+                    <option value="nl">🇳🇱 Nederlands</option>
+                    <option value="vi">🇻🇳 Tiếng Việt</option>
+                    <option value="id">🇮🇩 Bahasa Indonesia</option>
+                    <option value="az">🇦🇿 Azərbaycanca</option>
+                    <option value="uz">🇺🇿 O'zbekcha</option>
+                </select>
+            </div>
+
+            <!-- График работы в шапке сайта -->
+            <div class="hidden lg:flex items-center gap-2 px-3 py-1.5 rounded-lg bg-rock-900/80 border border-rock-700 text-xs text-gray-300">
+                <i class="fa-solid fa-clock text-amberGold"></i>
+                <div>
+                    <span class="font-semibold text-white" data-i18n="workHoursHeader">Пн - Пт: 15:30 - 20:00</span>
+                    <span class="text-red-400 block text-[10px]" data-i18n="weekendHeader">Сб - Вс: Выходной</span>
+                </div>
+            </div>
+
+            <nav class="hidden md:flex items-center gap-5 text-sm font-medium">
+                <a href="#about" class="hover:text-amberGold transition-colors" data-i18n="navAbout">О нас</a>
+                <a href="#services" class="hover:text-amberGold transition-colors" data-i18n="navServices">Прайс-лист</a>
+                <a href="#reviews" class="hover:text-amberGold transition-colors" data-i18n="navReviews">Отзывы</a>
+                <a href="#contacts" class="hover:text-amberGold transition-colors" data-i18n="navContacts">Контакты</a>
+            </nav>
+
+            <div class="flex items-center gap-3">
+                <a href="https://www.olx.kz/d/obyavlenie/pochinka-barabanov-gitar-i-bas-gitar-IDrexQC.html" target="_blank" class="bg-cyan-600 hover:bg-cyan-500 text-white px-2.5 py-1 rounded-lg transition-colors flex items-center gap-1 font-bold text-xs shadow-sm">
+                    <i class="fa-solid fa-store text-sm"></i> <span>OLX</span>
+                </a>
+                <a href="https://www.instagram.com/pochinkadrumsandguitar?srtk=dXg3Nmdwb21yM3Rq" target="_blank" class="text-pink-500 hover:text-pink-400 transition-colors flex items-center gap-1 font-semibold text-sm">
+                    <i class="fa-brands fa-instagram text-lg"></i> <span class="hidden sm:inline">Instagram</span>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- БЕСПЛАТНЫЙ ИНТЕРАКТИВНЫЙ МЕТРОНОМ -->
+    <section class="py-12 bg-rock-800/20 border-b border-rock-700/50">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="bg-rock-800 border border-rock-700 p-6 sm:p-8 rounded-2xl shadow-xl">
+                <div class="flex flex-col sm:flex-row items-center justify-between gap-6 mb-8 border-b border-rock-700 pb-6">
+                    <div>
+                        <div class="flex items-center gap-2 text-amberGold text-xs font-semibold uppercase tracking-widest mb-1">
+                            <i class="fa-solid fa-stopwatch"></i> Инструмент музыканта (Бесплатно)
+                        </div>
+                        <h2 class="font-heading text-2xl font-extrabold text-white">Профессиональный Метроном</h2>
+                        <p class="text-gray-400 text-xs sm:text-sm mt-1">Точный темп от 40 до 800 BPM для оттачивания ритма гитарных соло и барабанных сбивок.</p>
+                    </div>
+                    <!-- Визуальный индикатор удара -->
+                    <div id="metronomeBeatIndicator" class="w-16 h-16 rounded-full bg-rock-900 border-2 border-rock-700 flex items-center justify-center transition-all">
+                        <i class="fa-solid fa-music text-gray-500 text-xl"></i>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-12 gap-6 items-center">
+                <!-- Управление BPM -->
+                <div class="md:col-span-7 space-y-4">
+                    <div class="flex justify-between items-center">
+                        <span class="text-sm font-semibold text-gray-300">Темп (BPM):</span>
+                        <div class="flex items-baseline gap-1">
+                            <span id="bpmDisplay" class="text-3xl font-extrabold text-amberGold font-mono">120</span>
+                            <span class="text-xs text-gray-500 font-bold uppercase">bpm</span>
+                        </div>
+                    </div>
+                    <!-- Ползунок от 40 до 800 BPM -->
+                    <input type="range" id="bpmRange" min="40" max="800" value="120" oninput="setBpm(this.value)" class="w-full accent-amberGold h-2 bg-rock-900 rounded-lg cursor-pointer">
+                    
+                    <div class="flex items-center justify-between gap-2 pt-2">
+                        <button onclick="changeBpm(-5)" class="px-3 py-1.5 rounded-lg bg-rock-900 border border-rock-700 hover:border-amberGold text-xs font-bold text-white transition-all shadow-sm active:scale-95">-5</button>
+                        <button onclick="changeBpm(-1)" class="px-3 py-1.5 rounded-lg bg-rock-900 border border-rock-700 hover:border-amberGold text-xs font-bold text-white transition-all shadow-sm active:scale-95">-1</button>
+                        <button onclick="tapTempo()" class="flex-grow py-1.5 rounded-lg bg-rock-900 border border-amberGold/50 text-amberGold hover:bg-amberGold hover:text-black text-xs font-bold transition-all shadow-sm active:scale-95">
+                            <i class="fa-solid fa-hand-pointer mr-1"></i> TAP TEMPO
+                        </button>
+                        <button onclick="changeBpm(1)" class="px-3 py-1.5 rounded-lg bg-rock-900 border border-rock-700 hover:border-amberGold text-xs font-bold text-white transition-all shadow-sm active:scale-95">+1</button>
+                        <button onclick="changeBpm(5)" class="px-3 py-1.5 rounded-lg bg-rock-900 border border-rock-700 hover:border-amberGold text-xs font-bold text-white transition-all shadow-sm active:scale-95">+5</button>
+                    </div>
+                </div>
+
+                <!-- Кнопка Старт/Стоп, выбор звука и размер -->
+                <div class="md:col-span-5 flex flex-col justify-center space-y-3 bg-rock-900/90 p-5 rounded-xl border border-rock-700/80 shadow-inner">
+                    <div class="flex items-center justify-between">
+                        <span class="text-xs text-gray-400 font-medium">Звук клика:</span>
+                        <select id="metronomeSound" class="bg-rock-800 border border-rock-700 text-amberGold text-xs font-semibold px-2.5 py-1.5 rounded-lg focus:outline-none focus:border-amberGold cursor-pointer">
+                            <option value="classic">🔔 Классический (Beep)</option>
+                            <option value="wood">🪵 Деревянный (Woodblock)</option>
+                            <option value="snare">🥁 Малый барабан (Snare)</option>
+                            <option value="arcade">👾 8-Bit Аркада</option>
+                            <option value="meow">🐱 Мяуканье (Кот)</option>
+                            <option value="quack">🦆 Кряканье (Утка)</option>
+                            <option value="laser">🔫 Лазерный бластер</option>
+                        </select>
+                    </div>
+
+                    <div class="flex items-center justify-between">
+                        <span class="text-xs text-gray-400 font-medium">Размер такта:</span>
+                        <select id="timeSignature" class="bg-rock-800 border border-rock-700 text-amberGold text-xs font-semibold px-2.5 py-1.5 rounded-lg focus:outline-none focus:border-amberGold">
+                            <option value="4">4 / 4</option>
+                            <option value="3">3 / 4</option>
+                            <option value="2">2 / 4</option>
+                            <option value="6">6 / 8</option>
+                        </select>
+                    </div>
+
+                    <button id="metronomeToggleBtn" onclick="toggleMetronome()" class="w-full bg-amberGold hover:bg-amber-500 text-black font-extrabold py-3.5 rounded-xl text-sm transition-all shadow-md flex items-center justify-center gap-2 active:scale-95">
+                        <i id="metronomeBtnIcon" class="fa-solid fa-play"></i> <span id="metronomeBtnText">СТАРТ</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- HERO СЕКЦИЯ -->
+    <section id="about" class="relative py-12 lg:py-20 overflow-hidden border-b border-rock-700/50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                
+                <div class="lg:col-span-7 space-y-6">
+                    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amberGold/10 border border-amberGold/30 text-amberGold text-xs font-semibold uppercase tracking-wider">
+                        <i class="fa-solid fa-guitar"></i> <span data-i18n="heroBadge">Новый сервис по ремонту и отстройке</span>
+                    </div>
+                    <h1 class="font-heading text-4xl sm:text-5xl lg:text-6xl font-extrabold text-white leading-tight">
+                        <span data-i18n="heroWelcome">Добро пожаловать в</span> <span class="gold-gradient-text">DrumTar Repair</span>
+                    </h1>
+                    <p class="text-gray-300 text-base sm:text-lg leading-relaxed" data-i18n="heroDesc">
+                        <strong>DrumTar Repair</strong> — это новая компания, которая изо всех сил старается делать гитары и барабаны примерно идеально! Мы любим музыку так же, как и вы, поэтому относимся к каждому инструменту с особым вниманием и заботой.
+                    </p>
+
+                    <!-- Контакты мастеров -->
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
+                        <div class="glass-card p-4 rounded-xl flex items-center gap-3 transition-all hover:-translate-y-0.5">
+                            <div class="w-10 h-10 rounded-lg bg-amberGold/10 border border-amberGold/30 text-amberGold flex items-center justify-center text-lg shadow-sm">
+                                <i class="fa-solid fa-guitar"></i>
+                            </div>
+                            <div>
+                                <span class="text-xs text-gray-400 block font-medium" data-i18n="guitarMasterLabel">Мастер по гитарам №1</span>
+                                <a href="tel:+77073242453" class="font-bold text-white hover:text-amberGold text-sm transition-colors">+7 707 324 2453</a>
+                            </div>
+                        </div>
+
+                        <div class="glass-card p-4 rounded-xl flex items-center gap-3 transition-all hover:-translate-y-0.5">
+                            <div class="w-10 h-10 rounded-lg bg-amberGold/10 border border-amberGold/30 text-amberGold flex items-center justify-center text-lg shadow-sm">
+                                <i class="fa-solid fa-guitar text-amberGold"></i>
+                            </div>
+                            <div>
+                                <div class="flex items-center gap-1.5">
+                                    <span class="text-xs text-gray-400 font-medium">Мастер по гитарам №2</span>
+                                    <span class="text-[9px] bg-amberGold/20 text-amberGold px-1.5 py-0.5 rounded border border-amberGold/30 font-bold">На дому</span>
+                                </div>
+                                <a href="tel:+77077210869" class="font-bold text-white hover:text-amberGold text-sm transition-colors">+7 707 721 0869</a>
+                            </div>
+                        </div>
+
+                        <div class="glass-card p-4 rounded-xl flex items-center gap-3 transition-all hover:-translate-y-0.5">
+                            <div class="w-10 h-10 rounded-lg bg-amberGold/10 border border-amberGold/30 text-amberGold flex items-center justify-center text-lg shadow-sm">
+                                <i class="fa-solid fa-guitar text-yellow-500"></i>
+                            </div>
+                            <div>
+                                <span class="text-xs text-gray-400 block font-medium">Мастер по бас-гитарам</span>
+                                <a href="tel:+77086791898" class="font-bold text-white hover:text-amberGold text-sm transition-colors">+7 708 679 1898</a>
+                            </div>
+                        </div>
+
+                        <div class="glass-card p-4 rounded-xl flex items-center gap-3 transition-all hover:-translate-y-0.5">
+                            <div class="w-10 h-10 rounded-lg bg-amberGold/10 border border-amberGold/30 text-amberGold flex items-center justify-center text-lg shadow-sm">
+                                <i class="fa-solid fa-drum"></i>
+                            </div>
+                            <div>
+                                <span class="text-xs text-gray-400 block font-medium" data-i18n="drumMasterLabel">Мастер по барабанам</span>
+                                <a href="tel:+77081701233" class="font-bold text-white hover:text-amberGold text-sm transition-colors">+7 708 170 1233</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="pt-2 flex items-center gap-3">
+                        <a href="https://www.olx.kz/d/obyavlenie/pochinka-barabanov-gitar-i-bas-gitar-IDrexQC.html" target="_blank" class="inline-flex items-center gap-2 bg-cyan-700/80 hover:bg-cyan-600 border border-cyan-500 text-white px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all shadow-md">
+                            <i class="fa-solid fa-bullhorn text-amberGold"></i> Объявление на OLX.kz
+                        </a>
+                    </div>
+
+                    <div class="border-t border-rock-700 pt-4 text-xs text-gray-300 flex flex-col sm:flex-row sm:items-center justify-between gap-1">
+                        <span>💬 <strong class="text-white" data-i18n="whatsappNote">Желательно писать в WhatsApp!</strong></span>
+                        <span class="text-amberGold" data-i18n="callHoursNote">📞 Звонки принимаются с 15:00 до 22:00</span>
+                    </div>
+                    <div class="border-t border-rock-700 pt-2 text-xs text-amberGold flex items-center gap-2">
+                        <i class="fa-solid fa-file-contract"></i>
+                        <span data-i18n="termsNotice"><strong>Условия обслуживания:</strong> Гарантия на работы 30 дней. Предоплата для сложных ремонтов 50%.</span>
+                    </div>
+                    <div class="border-t border-rock-700 pt-2 text-xs text-amberGold flex items-center gap-2">
+                        <i class="fa-solid fa-money-bill-wave"></i>
+                        <span data-i18n="cashNote"><strong>Оплата:</strong> Желательно рассчитываться наличными средствами.</span>
+                    </div>
+                </div>
+
+                <!-- Правая колонка: Блок выезда мастеров -->
+                <div class="lg:col-span-5">
+                    <div class="bg-rock-800 border border-rock-700 p-6 sm:p-8 rounded-2xl shadow-xl space-y-6 relative overflow-hidden">
+                        <div class="absolute -right-10 -bottom-10 text-rock-700/20 text-9xl pointer-events-none">
+                            <i class="fa-solid fa-truck-fast"></i>
+                        </div>
+
+                        <div class="flex items-center gap-4">
+                            <div class="w-14 h-14 rounded-2xl bg-amberGold/20 border border-amberGold/50 text-amberGold flex items-center justify-center text-2xl shadow-md">
+                                <i class="fa-solid fa-van-shuttle"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-heading font-extrabold text-xl text-white" data-i18n="fieldTitle">Мастера едут на выезд!</h3>
+                                <p class="text-xs text-amberGold font-semibold" data-i18n="fieldSubtitle">Обслуживание на вашей локации</p>
+                            </div>
+                        </div>
+
+                        <p class="text-gray-300 text-sm leading-relaxed" data-i18n="fieldDesc">
+                            Не хотите везти тяжелые барабаны или гитару через весь город? <strong class="text-white">Наши мастера сами приедут к вам на дом или в репетиционную студию!</strong>
+                        </p>
+
+                        <div class="space-y-3 pt-1">
+                            <div class="flex items-start gap-3 bg-rock-900/60 p-3 rounded-xl border border-rock-700/60">
+                                <i class="fa-solid fa-house-chimney-user text-amberGold text-base mt-0.5"></i>
+                                <div>
+                                    <h4 class="text-xs font-bold text-white uppercase tracking-wider" data-i18n="fieldItem1Title">Диагностика и отстройка на месте</h4>
+                                    <p class="text-xs text-gray-400" data-i18n="fieldItem1Desc">Проведем осмотр инструмента, выявим поломки и выполним работы сразу на вашей площадке.</p>
+                                </div>
+                            </div>
+
+                            <div class="flex items-start gap-3 bg-rock-900/60 p-3 rounded-xl border border-rock-700/60">
+                                <i class="fa-solid fa-percent text-red-400 text-base mt-0.5"></i>
+                                <div>
+                                    <h4 class="text-xs font-bold text-white uppercase tracking-wider" data-i18n="fieldItem2Title">Скидка -20% на услуги</h4>
+                                    <p class="text-xs text-gray-400" data-i18n="fieldItem2Desc">Скидка 20% на первый заказ действует исключительно на работы и услуги по обслуживанию инструментов!</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="pt-2 flex items-center justify-between border-t border-rock-700/80">
+                            <span class="text-xs text-gray-400" data-i18n="fieldPriceLabel">Стоимость вызова мастера:</span>
+                            <span class="text-amberGold font-extrabold text-lg">5 000 ₸</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- ПРАЙС-ЛИСТ И УСЛУГИ -->
+    <section id="services" class="py-16 bg-rock-800/50 border-b border-rock-700/50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-12">
+                <h2 class="font-heading text-3xl md:text-4xl font-extrabold text-white" data-i18n="servicesTitle">Стоимость Услуг</h2>
+                <p class="text-gray-400 mt-2" data-i18n="servicesSubtitle">Прозрачные и честные цены на ремонт и обслуживание инструментов</p>
+            </div>
+
+            <!-- Вкладки категорий -->
+            <div class="flex justify-center gap-2 sm:gap-4 mb-8 flex-wrap">
+                <button onclick="switchTab('general')" id="tab-general" class="tab-btn active px-5 py-2.5 rounded-xl border border-rock-700 text-sm font-semibold transition-all flex items-center gap-2">
+                    <i class="fa-solid fa-list-check"></i> <span data-i18n="tabGeneral">Общие выездные услуги</span>
+                </button>
+                <button onclick="switchTab('guitar')" id="tab-guitar" class="tab-btn px-5 py-2.5 rounded-xl border border-rock-700 text-sm font-semibold transition-all flex items-center gap-2">
+                    <i class="fa-solid fa-guitar"></i> <span data-i18n="tabGuitar">Услуги для гитар</span>
+                </button>
+                <button onclick="switchTab('bass')" id="tab-bass" class="tab-btn px-5 py-2.5 rounded-xl border border-rock-700 text-sm font-semibold transition-all flex items-center gap-2">
+                    <i class="fa-solid fa-guitar text-yellow-500"></i> <span>Услуги для бас-гитар</span>
+                </button>
+                <button onclick="switchTab('drums')" id="tab-drums" class="tab-btn px-5 py-2.5 rounded-xl border border-rock-700 text-sm font-semibold transition-all flex items-center gap-2">
+                    <i class="fa-solid fa-drum"></i> <span data-i18n="tabDrums">Услуги для барабанов</span>
+                </button>
+            </div>
+
+            <!-- Контент Вкладок -->
+            <div class="max-w-4xl mx-auto">
+                
+                <!-- ОБЩИЕ УСЛУГИ -->
+                <div id="content-general" class="space-y-4">
+                    <div class="bg-rock-800 border border-rock-700 rounded-xl p-5 flex items-center justify-between hover:border-amberGold/40 transition-all">
+                        <div class="flex items-center gap-4">
+                            <div class="w-10 h-10 rounded-lg bg-amberGold/10 text-amberGold flex items-center justify-center text-lg">
+                                <i class="fa-solid fa-comments"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-semibold text-white text-lg" data-i18n="serv1Title">Консультация</h3>
+                                <p class="text-xs text-gray-400" data-i18n="serv1Desc">Ответы на любые вопросы по инструменту и его отстройке</p>
+                            </div>
+                        </div>
+                        <div class="text-right">
+                            <span class="text-amberGold font-extrabold text-xl">1 500 ₸</span>
+                        </div>
+                    </div>
+
+                    <div class="bg-rock-800 border border-rock-700 rounded-xl p-5 flex items-center justify-between hover:border-amberGold/40 transition-all">
+                        <div class="flex items-center gap-4">
+                            <div class="w-10 h-10 rounded-lg bg-amberGold/10 text-amberGold flex items-center justify-center text-lg">
+                                <i class="fa-solid fa-magnifying-glass"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-semibold text-white text-lg" data-i18n="serv2Title">Диагностика с вызовом</h3>
+                                <p class="text-xs text-gray-400" data-i18n="serv2Desc">Полный осмотр механики и электроники у вас на дому</p>
+                            </div>
+                        </div>
+                        <div class="text-right">
+                            <span class="text-amberGold font-extrabold text-xl">3 000 ₸</span>
+                        </div>
+                    </div>
+
+                    <div class="bg-rock-800 border border-rock-700 rounded-xl p-5 flex items-center justify-between hover:border-amberGold/40 transition-all">
+                        <div class="flex items-center gap-4">
+                            <div class="w-10 h-10 rounded-lg bg-amberGold/10 text-amberGold flex items-center justify-center text-lg">
+                                <i class="fa-solid fa-car"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-semibold text-white text-lg" data-i18n="serv3Title">Вызов мастера</h3>
+                                <p class="text-xs text-gray-400" data-i18n="serv3Desc">Оперативный выезд специалиста по вашему адресу</p>
+                            </div>
+                        </div>
+                        <div class="text-right">
+                            <span class="text-amberGold font-extrabold text-xl">5 000 ₸</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ГИТАРЫ -->
+                <div id="content-guitar" class="hidden space-y-4">
+                    
+                    <!-- Блок Первого Мастера -->
+                    <div class="p-4 bg-amberGold/10 border border-amberGold/30 rounded-xl mb-6">
+                        <div class="flex items-center justify-between mb-3">
+                            <div class="flex items-center gap-2 text-amberGold font-bold text-base">
+                                <i class="fa-solid fa-user-gear"></i>
+                                <span>Мастер по гитарам №1</span>
+                            </div>
+                            <a href="tel:+77073242453" class="bg-amberGold hover:bg-amber-500 text-black px-3 py-1 rounded-lg text-xs font-bold transition-all flex items-center gap-1">
+                                <i class="fa-solid fa-phone"></i> +7 707 324 2453
+                            </a>
+                        </div>
+                        <p class="text-xs text-gray-300">Специальные услуги мастера (Настройка Floyd Rose, замена струн, мензура, звукосниматели и чистка):</p>
+                    </div>
+
+                    <div class="bg-rock-800 border border-rock-700 rounded-xl p-4 sm:p-5 flex items-center justify-between">
+                        <div>
+                            <h3 class="font-semibold text-white text-base sm:text-lg">Настройка Флойд Роуза</h3>
+                            <p class="text-xs text-gray-400">Точная балансировка тремоло-системы и натяжение пружин</p>
+                        </div>
+                        <span class="text-amberGold font-bold text-sm sm:text-base whitespace-nowrap ml-4">По договоренности</span>
+                    </div>
+
+                    <div class="bg-rock-800 border border-rock-700 rounded-xl p-4 sm:p-5 flex items-center justify-between">
+                        <div>
+                            <h3 class="font-semibold text-white text-base sm:text-lg">Замена струн на Флойд Роузе</h3>
+                            <p class="text-xs text-amber-500/90">*С учетом, что струны покупает владелец гитары</p>
+                        </div>
+                        <span class="text-amberGold font-bold text-sm sm:text-base whitespace-nowrap ml-4">По договоренности</span>
+                    </div>
+
+                    <div class="bg-rock-800 border border-rock-700 rounded-xl p-4 sm:p-5 flex items-center justify-between">
+                        <div>
+                            <h3 class="font-semibold text-white text-base sm:text-lg">Замена струн на гитаре другого типа</h3>
+                            <p class="text-xs text-amber-500/90">Обычный или фиксированный бридж (*с учетом, что струны покупает владелец)</p>
+                        </div>
+                        <span class="text-amberGold font-bold text-sm sm:text-base whitespace-nowrap ml-4">По договоренности</span>
+                    </div>
+
+                    <div class="bg-rock-800 border border-rock-700 rounded-xl p-4 sm:p-5 flex items-center justify-between">
+                        <div>
+                            <h3 class="font-semibold text-white text-base sm:text-lg">Обработка грифа лимонным маслом + чистка гитары</h3>
+                            <p class="text-xs text-gray-400">Очистка корпуса и накладки грифа с пропиткой (*у клиента выбор, согласны или нет)</p>
+                        </div>
+                        <span class="text-amberGold font-bold text-sm sm:text-base whitespace-nowrap ml-4">По договоренности</span>
+                    </div>
+
+                    <div class="bg-rock-800 border border-rock-700 rounded-xl p-4 sm:p-5 flex items-center justify-between">
+                        <div>
+                            <h3 class="font-semibold text-white text-base sm:text-lg">Настройка мензуры</h3>
+                            <p class="text-xs text-gray-400">Точная отстройка строя по ладам и длины мензуры</p>
+                        </div>
+                        <span class="text-amberGold font-bold text-sm sm:text-base whitespace-nowrap ml-4">По договоренности</span>
+                    </div>
+
+                    <div class="bg-rock-800 border border-rock-700 rounded-xl p-4 sm:p-5 flex items-center justify-between">
+                        <div>
+                            <h3 class="font-semibold text-white text-base sm:text-lg">Замена синглов / хамбакеров</h3>
+                            <p class="text-xs text-amber-500/90">*С учетом, что материал (звукосниматели) владельца</p>
+                        </div>
+                        <span class="text-amberGold font-bold text-sm sm:text-base whitespace-nowrap ml-4">По договоренности</span>
+                    </div>
+
+                    <div class="bg-rock-800 border border-rock-700 rounded-xl p-4 sm:p-5 flex items-center justify-between">
+                        <div>
+                            <h3 class="font-semibold text-white text-base sm:text-lg">Замена бриджа</h3>
+                            <p class="text-xs text-gray-400">Демонтаж старого и установка нового бриджа с подгонкой</p>
+                        </div>
+                        <span class="text-amberGold font-bold text-sm sm:text-base whitespace-nowrap ml-4">По договоренности</span>
+                    </div>
+
+                    <!-- Блок Второго Мастера -->
+                    <div class="p-4 bg-amberGold/10 border border-amberGold/30 rounded-xl my-6">
+                        <div class="flex items-center justify-between mb-2">
+                            <div class="flex items-center gap-2 text-amberGold font-bold text-base">
+                                <i class="fa-solid fa-house-user"></i>
+                                <span>Мастер по гитарам №2</span>
+                                <span class="text-xs bg-amberGold/20 text-amberGold px-2 py-0.5 rounded border border-amberGold/40 font-semibold">Работает на дому</span>
+                            </div>
+                            <a href="tel:+77077210869" class="bg-amberGold hover:bg-amber-500 text-black px-3 py-1 rounded-lg text-xs font-bold transition-all flex items-center gap-1">
+                                <i class="fa-solid fa-phone"></i> +7 707 721 0869
+                            </a>
+                        </div>
+                        <p class="text-xs text-amber-400 font-medium bg-rock-900/60 p-2 rounded-lg border border-amberGold/20">
+                            <i class="fa-solid fa-circle-info mr-1"></i> <strong>Обратите внимание:</strong> Мастер №2 принимает инструменты на дому. Инструмент необходимо привозить к нему на домашнюю мастерскую!
+                        </p>
+                    </div>
+
+                    <div class="bg-rock-800 border border-rock-700 rounded-xl p-4 sm:p-5 flex items-center justify-between hover:border-amberGold/40 transition-all">
+                        <div>
+                            <div class="flex items-center gap-2">
+                                <h3 class="font-semibold text-white text-base sm:text-lg">Полировка ладов</h3>
+                                <span class="text-[10px] bg-amberGold/20 text-amberGold px-2 py-0.5 rounded border border-amberGold/30">Мастер №2</span>
+                            </div>
+                            <p class="text-xs text-gray-400">Гладкая зеркальная полировка ладов для легкого бендинга и отличного вида</p>
+                        </div>
+                        <span class="text-amberGold font-bold text-sm sm:text-base whitespace-nowrap ml-4">По договоренности</span>
+                    </div>
+
+                    <div class="bg-rock-800 border border-rock-700 rounded-xl p-4 sm:p-5 flex items-center justify-between hover:border-amberGold/40 transition-all">
+                        <div>
+                            <div class="flex items-center gap-2">
+                                <h3 class="font-semibold text-white text-base sm:text-lg">Замена струн (обычный бридж / Floyd Rose)</h3>
+                                <span class="text-[10px] bg-amberGold/20 text-amberGold px-2 py-0.5 rounded border border-amberGold/30">Мастер №2</span>
+                            </div>
+                            <p class="text-xs text-gray-400">Быстрая и аккуратная установка струн на любой тип бриджа</p>
+                        </div>
+                        <span class="text-amberGold font-bold text-sm sm:text-base whitespace-nowrap ml-4">По договоренности</span>
+                    </div>
+
+                    <div class="bg-rock-800 border border-rock-700 rounded-xl p-4 sm:p-5 flex items-center justify-between hover:border-amberGold/40 transition-all">
+                        <div>
+                            <div class="flex items-center gap-2">
+                                <h3 class="font-semibold text-white text-base sm:text-lg">Отстройка инструмента</h3>
+                                <span class="text-[10px] bg-amberGold/20 text-amberGold px-2 py-0.5 rounded border border-amberGold/30">Мастер №2</span>
+                            </div>
+                            <p class="text-xs text-gray-400">Комплексная регулировка мензуры, высоты струн и анкерного стержня</p>
+                        </div>
+                        <span class="text-amberGold font-bold text-sm sm:text-base whitespace-nowrap ml-4">По договоренности</span>
+                    </div>
+
+                    <div class="bg-rock-800 border border-rock-700 rounded-xl p-4 sm:p-5 flex items-center justify-between hover:border-amberGold/40 transition-all">
+                        <div>
+                            <div class="flex items-center gap-2">
+                                <h3 class="font-semibold text-white text-base sm:text-lg">Чистка инструмента</h3>
+                                <span class="text-[10px] bg-amberGold/20 text-amberGold px-2 py-0.5 rounded border border-amberGold/30">Мастер №2</span>
+                            </div>
+                            <p class="text-xs text-gray-400">Полная очистка корпуса, деки, фурнитуры и уход за накладкой грифа</p>
+                        </div>
+                        <span class="text-amberGold font-bold text-sm sm:text-base whitespace-nowrap ml-4">По договоренности</span>
+                    </div>
+                </div>
+
+                <!-- БАС-ГИТАРЫ -->
+                <div id="content-bass" class="hidden space-y-4">
+                    <div class="p-4 bg-amberGold/10 border border-amberGold/30 rounded-xl mb-6">
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center gap-2 text-amberGold font-bold text-base">
+                                <i class="fa-solid fa-guitar"></i>
+                                <span>Мастер по бас-гитарам</span>
+                            </div>
+                            <a href="tel:+77086791898" class="bg-amberGold hover:bg-amber-500 text-black px-3 py-1 rounded-lg text-xs font-bold transition-all flex items-center gap-1">
+                                <i class="fa-solid fa-phone"></i> +7 708 679 1898
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="bg-rock-800 border border-rock-700 rounded-xl p-4 sm:p-5 flex items-center justify-between">
+                        <div>
+                            <h3 class="font-semibold text-white text-base sm:text-lg">Полная настройка бас-гитары</h3>
+                            <p class="text-xs text-gray-400">Комплексная диагностика и полная отстройка бас-гитары</p>
+                        </div>
+                        <span class="text-amberGold font-bold text-sm sm:text-base whitespace-nowrap ml-4">По договоренности</span>
+                    </div>
+
+                    <div class="bg-rock-800 border border-rock-700 rounded-xl p-4 sm:p-5 flex items-center justify-between">
+                        <div>
+                            <h3 class="font-semibold text-white text-base sm:text-lg">Регулировка анкера и высоты струн</h3>
+                            <p class="text-xs text-gray-400">Настройка прогиба грифа и высоты струн для удобства игры</p>
+                        </div>
+                        <span class="text-amberGold font-bold text-sm sm:text-base whitespace-nowrap ml-4">По договоренности</span>
+                    </div>
+
+                    <div class="bg-rock-800 border border-rock-700 rounded-xl p-4 sm:p-5 flex items-center justify-between">
+                        <div>
+                            <h3 class="font-semibold text-white text-base sm:text-lg">Настройка мензуры и интонации</h3>
+                            <p class="text-xs text-gray-400">Точная отстройка строя по ладам бас-гитары</p>
+                        </div>
+                        <span class="text-amberGold font-bold text-sm sm:text-base whitespace-nowrap ml-4">По договоренности</span>
+                    </div>
+
+                    <div class="bg-rock-800 border border-rock-700 rounded-xl p-4 sm:p-5 flex items-center justify-between">
+                        <div>
+                            <h3 class="font-semibold text-white text-base sm:text-lg">Полная чистка инструмента</h3>
+                            <p class="text-xs text-gray-400">Глубокая очистка корпуса, механики и накладки грифа</p>
+                        </div>
+                        <span class="text-amberGold font-bold text-sm sm:text-base whitespace-nowrap ml-4">По договоренности</span>
+                    </div>
+
+                    <div class="bg-rock-800 border border-rock-700 rounded-xl p-4 sm:p-5 flex items-center justify-between">
+                        <div>
+                            <h3 class="font-semibold text-white text-base sm:text-lg">Чистка и полировка ладов</h3>
+                            <p class="text-xs text-gray-400">Удаление оксида и зеркальная полировка ладов бас-гитары</p>
+                        </div>
+                        <span class="text-amberGold font-bold text-sm sm:text-base whitespace-nowrap ml-4">По договоренности</span>
+                    </div>
+
+                    <div class="bg-rock-800 border border-rock-700 rounded-xl p-4 sm:p-5 flex items-center justify-between">
+                        <div>
+                            <h3 class="font-semibold text-white text-base sm:text-lg">Замена и настройка фурнитуры</h3>
+                            <p class="text-xs text-gray-400">Установка новых колков, бриджа, порожков и регуляторов</p>
+                        </div>
+                        <span class="text-amberGold font-bold text-sm sm:text-base whitespace-nowrap ml-4">По договоренности</span>
+                    </div>
+
+                    <div class="bg-rock-800 border border-rock-700 rounded-xl p-4 sm:p-5 flex items-center justify-between">
+                        <div>
+                            <h3 class="font-semibold text-white text-base sm:text-lg">Замена анкера</h3>
+                            <p class="text-xs text-gray-400">Сложный ремонт по демонтажу и замене анкерного стержня грифа</p>
+                        </div>
+                        <span class="text-amberGold font-bold text-sm sm:text-base whitespace-nowrap ml-4">По договоренности</span>
+                    </div>
+                </div>
+
+                <!-- БАРАБАНЫ -->
+                <div id="content-drums" class="hidden space-y-4">
+                    
+                    <!-- Блок Мастера по барабанам -->
+                    <div class="p-4 bg-amberGold/10 border border-amberGold/30 rounded-xl mb-6">
+                        <div class="flex items-center justify-between mb-3">
+                            <div class="flex items-center gap-2 text-amberGold font-bold text-base">
+                                <i class="fa-solid fa-drum"></i>
+                                <span>Мастер по барабанам</span>
+                            </div>
+                            <a href="tel:+77081701233" class="bg-amberGold hover:bg-amber-500 text-black px-3 py-1 rounded-lg text-xs font-bold transition-all flex items-center gap-1">
+                                <i class="fa-solid fa-phone"></i> +7 708 170 1233
+                            </a>
+                        </div>
+                        <p class="text-xs text-gray-300">Обслуживание акустических и электронных ударных установок, педалей и компонентов:</p>
+                    </div>
+
+                    <div class="bg-rock-800 border border-rock-700 rounded-xl p-4 sm:p-5 flex items-center justify-between">
+                        <div>
+                            <h3 class="font-semibold text-white text-base sm:text-lg">Сборка электронной установки</h3>
+                            <p class="text-xs text-amber-500/90">*Если требуется замена деталей/компонентов, это происходит за счет владельца</p>
+                        </div>
+                        <span class="text-amberGold font-bold text-sm sm:text-base whitespace-nowrap ml-4">По договоренности</span>
+                    </div>
+
+                    <div class="bg-rock-800 border border-rock-700 rounded-xl p-4 sm:p-5 flex items-center justify-between">
+                        <div>
+                            <h3 class="font-semibold text-white text-base sm:text-lg">Настройка зажимов и креплений</h3>
+                            <p class="text-xs text-gray-400">Настройка клэмпов, кронштейнов, замков и подгонка узлов</p>
+                        </div>
+                        <span class="text-amberGold font-bold text-sm sm:text-base whitespace-nowrap ml-4">По договоренности</span>
+                    </div>
+
+                    <div class="bg-rock-800 border border-rock-700 rounded-xl p-4 sm:p-5 flex items-center justify-between">
+                        <div>
+                            <h3 class="font-semibold text-white text-base sm:text-lg">Настройка или регулировка педали бас-барабана</h3>
+                            <p class="text-xs text-gray-400">Регулировка колотушки, угла футборда и натяжения пружины</p>
+                        </div>
+                        <span class="text-amberGold font-bold text-sm sm:text-base whitespace-nowrap ml-4">По договоренности</span>
+                    </div>
+
+                    <div class="bg-rock-800 border border-rock-700 rounded-xl p-4 sm:p-5 flex items-center justify-between">
+                        <div>
+                            <h3 class="font-semibold text-white text-base sm:text-lg">Замена тарелок или регулировка</h3>
+                            <p class="text-xs text-gray-400">Установка новых тарелок и отстройка стоек/креплений</p>
+                        </div>
+                        <span class="text-amberGold font-bold text-sm sm:text-base whitespace-nowrap ml-4">По договоренности</span>
+                    </div>
+
+                    <div class="bg-rock-800 border border-rock-700 rounded-xl p-4 sm:p-5 flex items-center justify-between">
+                        <div>
+                            <h3 class="font-semibold text-white text-base sm:text-lg">Замена сеток на электронных барабанах</h3>
+                            <p class="text-xs text-gray-400">Установка новых сетчатых мембран (Mesh Head) на пэды</p>
+                        </div>
+                        <span class="text-amberGold font-bold text-sm sm:text-base whitespace-nowrap ml-4">По договоренности</span>
+                    </div>
+
+                    <div class="bg-rock-800 border border-rock-700 rounded-xl p-4 sm:p-5 flex items-center justify-between">
+                        <div>
+                            <h3 class="font-semibold text-white text-base sm:text-lg">Замена тарелок электронных барабанов</h3>
+                            <p class="text-xs text-amber-500/90">Установка и подключение электронных пэдов-тарелок (*материал владельца)</p>
+                        </div>
+                        <span class="text-amberGold font-bold text-sm sm:text-base whitespace-nowrap ml-4">По договоренности</span>
+                    </div>
+
+                    <div class="bg-rock-800 border border-rock-700 rounded-xl p-4 sm:p-5 flex items-center justify-between">
+                        <div>
+                            <h3 class="font-semibold text-white text-base sm:text-lg">Диагностика неисправности</h3>
+                            <p class="text-xs text-gray-400">Полный осмотр механики, датчиков и выявление поломок</p>
+                        </div>
+                        <span class="text-amberGold font-bold text-sm sm:text-base whitespace-nowrap ml-4">По договоренности</span>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- СЕКЦИЯ С РОК-ГРУППАМИ -->
+    <section id="bands" class="py-16 border-b border-rock-700/50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-12">
+                <span class="text-amberGold text-xs font-semibold tracking-widest uppercase" data-i18n="bandsTag">Звук Легенд (Пример)</span>
+                <h2 class="font-heading text-3xl md:text-4xl font-extrabold text-white mt-1" data-i18n="bandsTitle">Идеальная стройность рока</h2>
+                <p class="text-gray-400 mt-2" data-i18n="bandsDesc">Ниже представлены примеры известных рок-групп, демонстрирующие, как правильная настройка каждой детали помогает добиться желаемого характера звучания!</p>
+                <span class="inline-block mt-3 px-3 py-1 bg-rock-800 border border-rock-700 rounded-full text-[11px] text-amberGold font-medium" data-i18n="bandsNote">
+                    <i class="fa-solid fa-circle-info mr-1"></i> Названия рок-групп приведены исключительно в качестве наглядных примеров стиля и звучания.
+                </span>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                
+                <!-- Card 1 -->
+                <div class="bg-rock-800 border border-rock-700 rounded-2xl p-6 relative overflow-hidden group hover:border-amberGold/50 transition-all">
+                    <div class="flex items-center justify-between mb-4">
+                        <span class="text-3xl font-heading font-bold text-gray-600 group-hover:text-amberGold transition-colors">METALLICA</span>
+                        <i class="fa-solid fa-record-vinyl text-amberGold text-2xl"></i>
+                    </div>
+                    <p class="text-gray-300 text-sm leading-relaxed mb-4" data-i18n="band1Text">
+                        (Пример звучания) Для точнейших трэш-метал риффов и мощных ударов барабанов требуется идеальная регулировка высоты струн и натяжения пластиков.
+                    </p>
+                    <div class="text-xs text-amberGold font-medium flex items-center gap-2" data-i18n="band1Perk">
+                        <i class="fa-solid fa-check"></i> Мастерская точность тона
+                    </div>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="bg-rock-800 border border-rock-700 rounded-2xl p-6 relative overflow-hidden group hover:border-amberGold/50 transition-all">
+                    <div class="flex items-center justify-between mb-4">
+                        <span class="text-3xl font-heading font-bold text-gray-600 group-hover:text-amberGold transition-colors">AC/DC</span>
+                        <i class="fa-solid fa-bolt text-amberGold text-2xl"></i>
+                    </div>
+                    <p class="text-gray-300 text-sm leading-relaxed mb-4" data-i18n="band2Text">
+                        (Пример звучания) Чистый и прорезающий соло-звук на гитарах немыслим без отшлифованных ладов, а ритм держится на отстроенной педали бас-барабана.
+                    </p>
+                    <div class="text-xs text-amberGold font-medium flex items-center gap-2" data-i18n="band2Perk">
+                        <i class="fa-solid fa-check"></i> Энергия и надежность
+                    </div>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="bg-rock-800 border border-rock-700 rounded-2xl p-6 relative overflow-hidden group hover:border-amberGold/50 transition-all">
+                    <div class="flex items-center justify-between mb-4">
+                        <span class="text-3xl font-heading font-bold text-gray-600 group-hover:text-amberGold transition-colors">NIRVANA</span>
+                        <i class="fa-solid fa-guitar text-amberGold text-2xl"></i>
+                    </div>
+                    <p class="text-gray-300 text-sm leading-relaxed mb-4" data-i18n="band3Text">
+                        (Пример звучания) Экспрессивная гранж-игра требует стабильной работы машинки тремоло, а убойные партии — надежных стоек и натянутых пластиков.
+                    </p>
+                    <div class="text-xs text-amberGold font-medium flex items-center gap-2" data-i18n="band3Perk">
+                        <i class="fa-solid fa-check"></i> Выносливость к драйву
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- СИСТЕМА РЕЙТИНГА И ОТЗЫВОВ -->
+    <section id="reviews" class="py-16 bg-rock-800/40 border-b border-rock-700/50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12">
+                
+                <!-- Левый блок: Рейтинг и Форма -->
+                <div class="lg:col-span-5 space-y-6">
+                    <div>
+                        <h2 class="font-heading text-3xl font-extrabold text-white" data-i18n="reviewsTitle">Отзывы клиентов</h2>
+                        <p class="text-gray-400 text-sm mt-1" data-i18n="reviewsSubtitle">Оцените качество обслуживания в DrumTar Repair</p>
+                    </div>
+
+                    <!-- Карточка общего рейтинга -->
+                    <div class="bg-rock-800 border border-rock-700 p-6 rounded-2xl flex items-center justify-between glow-orange">
+                        <div>
+                            <div class="text-4xl font-extrabold text-white flex items-baseline gap-2">
+                                <span id="avgRatingDisplay">0.0</span> <span class="text-sm text-gray-400 font-normal" data-i18n="ratingOutOf">из 5</span>
+                            </div>
+                            <div class="flex text-amberGold gap-1 my-1 text-sm" id="avgStarsDisplay">
+                                <i class="fa-regular fa-star"></i>
+                                <i class="fa-regular fa-star"></i>
+                                <i class="fa-regular fa-star"></i>
+                                <i class="fa-regular fa-star"></i>
+                                <i class="fa-regular fa-star"></i>
+                            </div>
+                            <p class="text-xs text-gray-400" id="totalReviewsCount">На основе 0 отзывов</p>
+                        </div>
+                        <div class="text-right">
+                            <span class="px-3 py-1 rounded-full bg-amberGold/10 text-amberGold border border-amberGold/30 text-xs font-semibold" data-i18n="beFirstBadge">
+                                <i class="fa-solid fa-star"></i> Будьте первым!
+                            </span>
+                        </div>
+                    </div>
+
+                    <!-- Форма отзыва -->
+                    <form id="reviewForm" class="bg-rock-800 border border-rock-700 p-6 rounded-2xl space-y-4">
+                        <h3 class="font-heading font-bold text-white text-lg" data-i18n="formTitle">Оставить свой отзыв</h3>
+                        
+                        <div>
+                            <label class="block text-xs text-gray-400 mb-1" data-i18n="formRatingLabel">Ваша оценка</label>
+                            <div class="flex gap-2 text-2xl text-amberGold cursor-pointer" id="starRating">
+                            <i class="fa-solid fa-star transition-colors" data-rating="1"></i>
+                            <i class="fa-solid fa-star transition-colors" data-rating="2"></i>
+                            <i class="fa-solid fa-star transition-colors" data-rating="3"></i>
+                            <i class="fa-solid fa-star transition-colors" data-rating="4"></i>
+                            <i class="fa-solid fa-star transition-colors" data-rating="5"></i>
+                        </div>
+                        <input type="hidden" id="ratingValue" value="5">
+                    </div>
+
+                    <div>
+                        <label class="block text-xs text-gray-400 mb-1" data-i18n="formNameLabel">Имя</label>
+                        <input type="text" id="reviewerName" required placeholder="Ваше имя" class="w-full bg-rock-900 border border-rock-700 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-amberGold">
+                    </div>
+
+                    <div>
+                        <label class="block text-xs text-gray-400 mb-1" data-i18n="formInstLabel">Обслуженный инструмент</label>
+                        <select id="reviewerInstrument" class="w-full bg-rock-900 border border-rock-700 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-amberGold">
+                            <option value="Гитара" data-i18n="instGuitar">Гитара</option>
+                            <option value="Бас-гитара" data-i18n="instBass">Бас-гитара</option>
+                            <option value="Барабаны" data-i18n="instDrums">Барабаны</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label class="block text-xs text-gray-400 mb-1" data-i18n="formTextLabel">Ваш отзыв</label>
+                        <textarea id="reviewerText" required rows="3" placeholder="Расскажите о впечатлениях..." class="w-full bg-rock-900 border border-rock-700 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-amberGold"></textarea>
+                    </div>
+
+                    <button type="submit" class="w-full bg-amberGold hover:bg-amber-500 text-black font-bold py-2.5 rounded-lg text-sm transition-all shadow-md flex items-center justify-center gap-2" data-i18n="formSubmit">
+                        <i class="fa-solid fa-shield-halved text-xs"></i> <span>Опубликовать отзыв</span>
+                    </button>
+                </form>
+            </div>
+
+            <!-- Правый блок: Список отзывов -->
+            <div class="lg:col-span-7 space-y-4" id="reviewsContainer">
+                <!-- Отзывы будут подгружаться через JS -->
+            </div>
+
+        </div>
+    </div>
+</section>
+
+    <!-- КОНТАКТЫ И ФУТЕР -->
+    <footer id="contacts" class="bg-rock-900 mt-auto border-t border-rock-700 pt-12 pb-8">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-12">
+                
+                <div class="md:col-span-2 space-y-4">
+                    <div class="flex items-center gap-3">
+                        <span class="font-heading font-extrabold text-xl text-white">DrumTar <span class="text-amberGold">Repair</span></span>
+                    </div>
+                    <p class="text-gray-400 text-sm max-w-md" data-i18n="footerDesc">
+                        Хороший ремонт, настройка и диагностика гитар и барабанных установок. Скорость, точность звучания и гибкий подход к каждому музыканту.
+                    </p>
+                    <p id="footerPromoText" class="text-xs text-amberGold font-semibold hidden" data-i18n="footerPromo">
+                        <i class="fa-solid fa-gift"></i> Напоминаем: Скидка -20% действует на первый заказ услуг по инструментам!
+                    </p>
+                </div>
+
+                <div>
+                    <h4 class="font-semibold text-white mb-3" data-i18n="footerContactsTitle">Контакты мастеров</h4>
+                    <ul class="space-y-3 text-sm">
+                        <li class="flex items-center gap-2 text-gray-300">
+                            <i class="fa-solid fa-guitar text-amberGold"></i>
+                            <div>
+                                <p class="text-xs text-gray-400">Ремонт гитар Мастер №1 (WhatsApp / Звонки):</p>
+                                <a href="tel:+77073242453" class="font-semibold hover:text-amberGold">+7 707 324 2453</a>
+                            </div>
+                        </li>
+                        <li class="flex items-center gap-2 text-gray-300">
+                            <i class="fa-solid fa-guitar text-amberGold"></i>
+                            <div>
+                                <p class="text-xs text-gray-400">Ремонт гитар Мастер №2 (WhatsApp / Звонки):</p>
+                                <a href="tel:+77077210869" class="font-semibold hover:text-amberGold">+7 707 721 0869</a>
+                            </div>
+                        </li>
+                        <li class="flex items-center gap-2 text-gray-300">
+                            <i class="fa-solid fa-guitar text-yellow-500"></i>
+                            <div>
+                                <p class="text-xs text-gray-400">Ремонт бас-гитар (WhatsApp / Звонки):</p>
+                                <a href="tel:+77086791898" class="font-semibold hover:text-amberGold">+7 708 679 1898</a>
+                            </div>
+                        </li>
+                        <li class="flex items-center gap-2 text-gray-300">
+                            <i class="fa-solid fa-drum text-amberGold"></i>
+                            <div>
+                                <p class="text-xs text-gray-400" data-i18n="footerDrumLabel">Ремонт барабанов (WhatsApp / Звонки):</p>
+                                <a href="tel:+77081701233" class="font-semibold hover:text-amberGold">+7 708 170 1233</a>
+                            </div>
+                        </li>
+                        <li class="flex items-center gap-2 text-gray-300 pt-1">
+                            <i class="fa-brands fa-whatsapp text-green-500 text-base"></i>
+                            <div>
+                                <p class="text-xs text-gray-400" data-i18n="footerPrefLabel">Предпочтительно связь:</p>
+                                <span class="font-semibold text-green-400" data-i18n="footerPrefVal">Пишите в WhatsApp</span>
+                            </div>
+                        </li>
+                        <li class="flex items-center gap-2 text-gray-300">
+                            <i class="fa-solid fa-phone text-amberGold text-base"></i>
+                            <div>
+                                <p class="text-xs text-gray-400" data-i18n="footerCallTimeLabel">Время для звонков:</p>
+                                <span class="font-semibold text-white" data-i18n="footerCallTimeVal">с 15:00 до 22:00</span>
+                            </div>
+                        </li>
+                        <li class="flex items-center gap-2 text-gray-300">
+                            <i class="fa-solid fa-money-bill-wave text-amberGold text-base"></i>
+                            <div>
+                                <p class="text-xs text-gray-400" data-i18n="footerPayLabel">Способ оплаты:</p>
+                                <span class="font-semibold text-amberGold" data-i18n="footerPayVal">Желательно наличными</span>
+                            </div>
+                        </li>
+                        <li class="flex items-center gap-2 text-gray-300 pt-1">
+                            <i class="fa-solid fa-store text-cyan-400 text-base"></i>
+                            <div>
+                                <p class="text-xs text-gray-400">Наш профиль OLX:</p>
+                                <a href="https://www.olx.kz/d/obyavlenie/pochinka-barabanov-gitar-i-bas-gitar-IDrexQC.html" target="_blank" class="font-semibold text-cyan-300 hover:text-cyan-200 transition-colors">OLX Объявление</a>
+                            </div>
+                        </li>
+                        <li class="flex items-center gap-2 text-gray-300 pt-1">
+                            <i class="fa-brands fa-instagram text-pink-500 text-base"></i>
+                            <div>
+                                <p class="text-xs text-gray-400" data-i18n="footerInstLabel">Мы в Инстаграме:</p>
+                                <a href="https://www.instagram.com/pochinkadrumsandguitar?srtk=dXg3Nmdwb21yM3Rq" target="_blank" class="font-semibold hover:text-pink-400 transition-colors">@pochinkadrumsandguitar</a>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="font-semibold text-white mb-3" data-i18n="footerWorkTitle">График работы</h4>
+                    <p class="text-sm text-amberGold font-semibold" data-i18n="footerWorkDays">Пн - Пт: 15:30 - 20:00</p>
+                    <p class="text-xs text-red-400 font-semibold mt-1" data-i18n="footerWeekend">Сб - Вс: Выходной (не работаем)</p>
+                    <p class="text-xs text-gray-400 mt-2" data-i18n="footerNote">💬 Пишите в WhatsApp в любое время, звонки принимаем с 15:00 до 22:00. Оплата желательно наличными. Условия: гарантия 30 дней.</p>
+                </div>
+
+            </div>
+
+            <div class="border-t border-rock-800 pt-6 flex flex-col sm:flex-row justify-between items-center text-xs text-gray-500 gap-4">
+                <p data-i18n="footerRights">© 2026 DrumTar Repair. Все права защищены.</p>
+                <p data-i18n="footerSlogan">Хороший сервис для гитаристов и барабанщиков.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- МОДАЛЬНОЕ ОКНО ПУБЛИКАЦИИ В GOOGLE И CHROME -->
+    <div id="publishModal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm hidden items-center justify-center p-4">
+        <div class="bg-rock-800 border border-amberGold/40 rounded-2xl p-6 max-w-lg w-full shadow-2xl relative space-y-4">
+            <div class="flex items-center justify-between border-b border-rock-700 pb-3">
+                <div class="flex items-center gap-2 text-amberGold font-bold text-sm">
+                    <i class="fa-solid fa-globe text-lg"></i>
+                    <span>Публикация сайта в Google и Chrome</span>
+                </div>
+                <button onclick="closePublishModal()" class="text-gray-400 hover:text-white transition-colors">
+                    <i class="fa-solid fa-xmark text-lg"></i>
+                </button>
+            </div>
+
+            <div class="text-xs text-gray-300 space-y-3 leading-relaxed">
+                <p>Чтобы ваш сайт мастерской <strong>DrumTar Repair</strong> появился в поиске Google и открывался в браузере Chrome для всех пользователей, выполните 3 простых шага:</p>
+                
+                <div class="bg-rock-900 p-3 rounded-xl border border-rock-700 space-y-2">
+                    <div class="font-bold text-amberGold">Шаг 1: Размещение на хостинге (Бесплатно)</div>
+                    <p class="text-gray-400">Загрузите этот HTML-файл на любой бесплатный хостинг, например <strong>GitHub Pages</strong>, <strong>Netlify</strong> или <strong>Vercel</strong>.</p>
+                </div>
+
+                <div class="bg-rock-900 p-3 rounded-xl border border-rock-700 space-y-2">
+                    <div class="font-bold text-amberGold">Шаг 2: Индексация в Google Search Console</div>
+                    <p class="text-gray-400">Перейдите на <a href="https://search.google.com/search-console" target="_blank" class="text-cyan-400 underline">Google Search Console</a>, добавьте ссылку на ваш сайт и отправьте страницу на индексацию роботам Google.</p>
+                </div>
+
+                <div class="bg-rock-900 p-3 rounded-xl border border-rock-700 space-y-2">
+                    <div class="font-bold text-amberGold">Шаг 3: Появление в Google Chrome</div>
+                    <p class="text-gray-400">Как только Google проиндексирует сайт, пользователи смогут находить его в поиске Chrome по запросам: <em>"ремонт гитар алматы"</em> или <em>"DrumTar Repair"</em>.</p>
+                </div>
+            </div>
+
+            <button onclick="closePublishModal()" class="w-full bg-amberGold hover:bg-amber-500 text-black font-extrabold py-2.5 rounded-xl text-sm transition-all shadow-md">
+                Понятно, спасибо!
+            </button>
+        </div>
+    </div>
+
+    <!-- КНОПКА ВЫЗОВА ИНСТРУКЦИИ ПУБЛИКАЦИИ В ШАПКЕ/ФУТЕРЕ -->
+    <div class="fixed bottom-5 left-5 z-40">
+        <button onclick="openPublishModal()" class="bg-rock-800 hover:bg-rock-700 text-amberGold border border-amberGold/40 px-4 py-2.5 rounded-full shadow-2xl text-xs font-bold transition-all flex items-center gap-2">
+            <i class="fa-solid fa-rocket"></i> Как выложить в Google?
+        </button>
+    </div>
+
+    <!-- МОДАЛЬНОЕ ОКНО КАПТЧИ (SECURITY CAPTCHA) -->
+    <div id="captchaModal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm hidden items-center justify-center p-4">
+        <div class="bg-rock-800 border border-amberGold/40 rounded-2xl p-6 max-w-sm w-full shadow-2xl relative space-y-4">
+            <div class="flex items-center justify-between border-b border-rock-700 pb-3">
+                <div class="flex items-center gap-2 text-amberGold font-bold text-sm">
+                    <i class="fa-solid fa-shield-halved text-lg"></i>
+                    <span>Проверка безопасности</span>
+                </div>
+                <button onclick="closeCaptchaModal()" class="text-gray-400 hover:text-white transition-colors">
+                    <i class="fa-solid fa-xmark text-lg"></i>
+                </button>
+            </div>
+
+            <p class="text-xs text-gray-300">Решите простой пример, чтобы подтвердить, что вы не робот:</p>
+
+            <div class="bg-rock-900 border border-rock-700 rounded-xl p-4 flex items-center justify-between">
+                <span id="captchaQuestion" class="font-mono text-xl font-bold text-amberGold tracking-wider">5 + 3 = ?</span>
+                <button type="button" onclick="generateCaptcha()" class="text-gray-400 hover:text-amberGold text-xs transition-colors p-1" title="Обновить пример">
+                    <i class="fa-solid fa-rotate-right text-base"></i>
+                </button>
+            </div>
+
+            <input type="number" id="captchaInput" placeholder="Введите ответ..." class="w-full bg-rock-900 border border-rock-700 rounded-xl px-3 py-2.5 text-sm text-white focus:outline-none focus:border-amberGold text-center font-bold tracking-widest">
+
+            <p id="captchaError" class="text-xs text-red-400 hidden text-center font-semibold"><i class="fa-solid fa-circle-exclamation mr-1"></i> Неверный ответ! Попробуйте снова.</p>
+
+            <button onclick="verifyCaptcha()" class="w-full bg-amberGold hover:bg-amber-500 text-black font-extrabold py-2.5 rounded-xl text-sm transition-all shadow-md flex items-center justify-center gap-2">
+            <i class="fa-solid fa-check"></i> Подтвердить
+        </button>
+    </div>
+</div>
+
+    <!-- ВИДЖЕТ ТЕХПОДДЕРЖКИ (ОНЛАЙН ЧАТ) -->
+    <div class="fixed bottom-5 right-5 z-50">
+        <!-- Кнопка вызова чата -->
+        <button id="chatToggleBtn" onclick="toggleChat()" class="bg-amberGold hover:bg-amber-500 text-black p-4 rounded-full shadow-2xl transition-all transform hover:scale-110 flex items-center justify-center relative">
+            <i class="fa-solid fa-headset text-2xl"></i>
+            <span class="absolute -top-1 -right-1 w-3.5 h-3.5 bg-green-500 rounded-full border-2 border-rock-900"></span>
+        </button>
+
+        <!-- Окно чата -->
+        <div id="chatWindow" class="hidden absolute bottom-16 right-0 w-80 sm:w-96 bg-rock-800 border border-rock-700 rounded-2xl shadow-2xl flex flex-col overflow-hidden">
+            <!-- Шапка чата -->
+            <div class="bg-rock-700 p-4 flex items-center justify-between border-b border-rock-600">
+                <div class="flex items-center gap-3">
+                    <div class="w-8 h-8 rounded-full bg-amberGold/20 border border-amberGold flex items-center justify-center text-amberGold text-sm font-bold">
+                        <i class="fa-solid fa-robot"></i>
+                    </div>
+                    <div>
+                        <h4 class="font-bold text-white text-sm" data-i18n="chatTitle">AI Ассистент DrumTar Repair</h4>
+                        <span class="text-xs text-green-400 flex items-center gap-1">
+                            <span class="w-2 h-2 rounded-full bg-green-400 inline-block animate-pulse"></span> <span data-i18n="chatOnline">Умный ИИ онлайн</span>
+                        </span>
+                    </div>
+                </div>
+                <button onclick="toggleChat()" class="text-gray-400 hover:text-white">
+                    <i class="fa-solid fa-xmark text-lg"></i>
+                </button>
+            </div>
+
+            <!-- История сообщений -->
+            <div id="chatMessages" class="p-4 h-64 overflow-y-auto space-y-3 text-xs">
+                <div class="bg-rock-700/70 text-gray-200 p-3 rounded-xl max-w-[85%] border border-rock-600 leading-relaxed" data-i18n="chatInitial">
+                    Привет! Я умный ИИ-помощник мастерской DrumTar Repair 🎸🥁 Готов ответить на любые вопросы по отстройке гитар, барабанов и ценам!
+                </div>
+            </div>
+
+            <!-- Форма отправки -->
+            <form id="chatForm" onsubmit="sendChatMessage(event)" class="p-3 bg-rock-900 border-t border-rock-700 flex gap-2">
+                <input type="text" id="chatInput" placeholder="Спросите ИИ о ремонте..." required class="flex-grow bg-rock-800 border border-rock-700 text-white rounded-lg px-3 py-2 text-xs focus:outline-none focus:border-amberGold" data-i18n-placeholder="chatPlaceholder">
+                <button type="submit" id="chatSendBtn" class="bg-amberGold hover:bg-amber-500 text-black px-3.5 py-2 rounded-lg text-xs font-bold transition-all flex items-center justify-center">
+                    <i class="fa-solid fa-paper-plane"></i>
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- JAVASCRIPT ЛОГИКА -->
+    <script>
+        // Мультиязычный словарь (поддержка 21+ языков мира)
+        const translations = {
+            ru: {
+                promoText: "АКЦИЯ: <strong>-20% Скидка</strong> на первый заказ услуг по настройке и ремонту инструментов!",
+                subtitleHeader: "Мастерская гитар и барабанов",
+                workHoursHeader: "Пн - Пт: 15:30 - 20:00",
+                weekendHeader: "Сб - Вс: Выходной",
+                navAbout: "О нас",
+                navServices: "Прайс-лист",
+                navReviews: "Отзывы",
+                navContacts: "Контакты",
+                heroBadge: "Новый сервис по ремонту и отстройке",
+                heroWelcome: "Добро пожаловать в",
+                heroDesc: "<strong>DrumTar Repair</strong> — это новая компания, которая изо всех сил старается делать гитары и барабаны примерно идеально! Мы любим музыку так же, как и вы, поэтому относимся к каждому инструменту с особым вниманием и заботой.",
+                guitarMasterLabel: "Мастер по гитарам №1",
+                drumMasterLabel: "Мастер по барабанам",
+                whatsappNote: "Желательно писать в WhatsApp!",
+                callHoursNote: "📞 Звонки принимаются с 15:00 до 22:00",
+                termsNotice: "<strong>Условия обслуживания:</strong> Гарантия на работы 30 дней. Предоплата для сложных ремонтов 50%.",
+                cashNote: "<strong>Оплата:</strong> Желательно рассчитываться наличными средствами.",
+                fieldTitle: "Мастера едут на выезд!",
+                fieldSubtitle: "Обслуживание на вашей локации",
+                fieldDesc: "Не хотите везти тяжелые барабаны или гитару через весь город? <strong class=\"text-white\">Наши мастера сами приедут к вам на дом или в репетиционную студию!</strong>",
+                fieldItem1Title: "Диагностика и отстройка на месте",
+                fieldItem1Desc: "Проведем осмотр инструмента, выявим поломки и выполним работы сразу на вашей площадке.",
+                fieldItem2Title: "Скидка -20% на услуги",
+                fieldItem2Desc: "Скидка 20% на первый заказ действует исключительно на работы и услуги по обслуживанию инструментов!",
+                fieldPriceLabel: "Стоимость вызова мастера:",
+                servicesTitle: "Стоимость Услуг",
+                servicesSubtitle: "Прозрачные и честные цены на ремонт и обслуживание инструментов",
+                tabGeneral: "Общие выездные услуги",
+                tabGuitar: "Услуги для гитар",
+                tabDrums: "Услуги для барабанов",
+                serv1Title: "Консультация",
+                serv1Desc: "Ответы на любые вопросы по инструменту и его отстройке",
+                serv2Title: "Диагностика с вызовом",
+                serv2Desc: "Полный осмотр механики и электроники у вас на дому",
+                serv3Title: "Вызов мастера",
+                serv3Desc: "Оперативный выезд специалиста по вашему адресу",
+                bandsTag: "Звук Легенд (Пример)",
+                bandsTitle: "Идеальная стройность рока",
+                bandsDesc: "Ниже представлены примеры известных рок-групп, демонстрирующие, как правильная настройка каждой детали помогает добиться желаемого характера звучания!",
+                bandsNote: "Названия рок-групп приведены исключительно в качестве наглядных примеров стиля и звучания.",
+                band1Text: "(Пример звучания) Для точнейших трэш-метал риффов и мощных ударов барабанов требуется идеальная регулировка высоты струн и натяжения пластиков.",
+                band1Perk: "Мастерская точность тона",
+                band2Text: "(Пример звучания) Чистый и прорезающий соло-звук на гитарах немыслим без отшлифованных ладов, а ритм держится на отстроенной педали бас-барабана.",
+                band2Perk: "Энергия и надежность",
+                band3Text: "(Пример звучания) Экспрессивная гранж-игра требует стабильной работы машинки тремоло, а убойные партии — надежных стоек и натянутых пластиков.",
+                band3Perk: "Выносливость к драйву",
+                reviewsTitle: "Отзывы клиентов",
+                reviewsSubtitle: "Оцените качество обслуживания в DrumTar Repair",
+                ratingOutOf: "из 5",
+                beFirstBadge: "Будьте первым!",
+                formTitle: "Оставить свой отзыв",
+                formRatingLabel: "Ваша оценка",
+                formNameLabel: "Имя",
+                formInstLabel: "Обслуженный инструмент",
+                instGuitar: "Гитара",
+                instBass: "Бас-гитара",
+                instDrums: "Барабаны",
+                tipLabel: "Оставить чаевые мастеру (100 - 1000 ₸)",
+                formTextLabel: "Ваш отзыв",
+                formSubmit: "Опубликовать отзыв",
+                footerDesc: "Хороший ремонт, настройка и диагностика гитар и барабанных установок. Скорость, точность звучания и гибкий подход к каждому музыканту.",
+                footerPromo: "Напоминаем: Скидка -20% действует на первый заказ услуг по инструментам!",
+                footerContactsTitle: "Контакты мастеров",
+                footerDrumLabel: "Ремонт барабанов (WhatsApp / Звонки):",
+                footerPrefLabel: "Предпочтительно связь:",
+                footerPrefVal: "Пишите в WhatsApp",
+                footerCallTimeLabel: "Время для звонков:",
+                footerCallTimeVal: "с 15:00 до 22:00",
+                footerPayLabel: "Способ оплаты:",
+                footerPayVal: "Желательно наличными",
+                footerInstLabel: "Мы в Инстаграме:",
+                footerWorkTitle: "График работы",
+                footerWorkDays: "Пн - Пт: 15:30 - 20:00",
+                footerWeekend: "Сб - Вс: Выходной (не работаем)",
+                footerNote: "Пишите в WhatsApp в любое время, звонки принимаем с 15:00 до 22:00. Оплата желательно наличными. Условия: гарантия 30 дней.",
+                footerRights: "© 2026 DrumTar Repair. Все права защищены.",
+                footerSlogan: "Хороший сервис для гитаристов и барабанщиков.",
+                chatTitle: "AI Ассистент DrumTar Repair",
+                chatOnline: "Умный ИИ онлайн",
+                chatInitial: "Привет! Я умный ИИ-помощник мастерской DrumTar Repair 🎸🥁 Готов ответить на любые вопросы по отстройке гитар, барабанов и ценам!"
+            },
+            en: {
+                promoText: "PROMO: <strong>-20% Discount</strong> on your first instrument repair and setup service!",
+                subtitleHeader: "Guitar & Drum Repair Workshop",
+                workHoursHeader: "Mon - Fri: 15:30 - 20:00",
+                weekendHeader: "Sat - Sun: Closed",
+                navAbout: "About",
+                navServices: "Pricing",
+                navReviews: "Reviews",
+                navContacts: "Contacts",
+                heroBadge: "New Repair & Setup Service",
+                heroWelcome: "Welcome to",
+                heroDesc: "<strong>DrumTar Repair</strong> is a new company striving to make guitars and drums sound nearly perfect! We love music as much as you do, treating every instrument with exceptional care.",
+                guitarMasterLabel: "Guitar Master #1",
+                drumMasterLabel: "Drum Master",
+                whatsappNote: "Please write via WhatsApp!",
+                callHoursNote: "📞 Calls accepted from 15:00 to 22:00",
+                termsNotice: "<strong>Terms:</strong> 30-day warranty on all work. 50% prepayment for complex repairs.",
+                cashNote: "<strong>Payment:</strong> Cash payments are preferred.",
+                fieldTitle: "Masters on the Go!",
+                fieldSubtitle: "Service at your location",
+                fieldDesc: "Don't want to transport heavy drums or guitars across town? <strong class=\"text-white\">Our masters will come directly to your home or rehearsal studio!</strong>",
+                fieldItem1Title: "On-site Diagnostics & Setup",
+                fieldItem1Desc: "We inspect your instrument, diagnose issues, and perform services right at your venue.",
+                fieldItem2Title: "-20% Service Discount",
+                fieldItem2Desc: "The 20% discount on your first order applies exclusively to instrument maintenance and repair work!",
+                fieldPriceLabel: "Call-out fee:",
+                servicesTitle: "Service Pricing",
+                servicesSubtitle: "Transparent and fair prices for instrument repair and maintenance",
+                tabGeneral: "General On-site Services",
+                tabGuitar: "Guitar Services",
+                tabDrums: "Drum Services",
+                serv1Title: "Consultation",
+                serv1Desc: "Answers to any questions regarding your instrument and setup",
+                serv2Title: "On-site Diagnostics",
+                serv2Desc: "Full inspection of mechanics and electronics at your home",
+                serv3Title: "Master Call-out",
+                serv3Desc: "Prompt specialist visit to your address",
+                bandsTag: "Sound of Legends (Example)",
+                bandsTitle: "The Ideal Rock Tuning",
+                bandsDesc: "Below are examples of famous rock bands demonstrating how proper tuning of every detail helps achieve the desired character of sound!",
+                bandsNote: "Band names are used solely as illustrative examples of style and sound.",
+                band1Text: "(Sound example) Precise thrash metal riffs and powerful drum hits require perfect adjustment of string height and head tension.",
+                band1Perk: "Master-level tonal precision",
+                band2Text: "(Sound example) Clean and cutting guitar solo tone is impossible without polished frets, while rhythm relies on a well-adjusted bass drum pedal.",
+                band2Perk: "Energy and reliability",
+                band3Text: "(Sound example) Expressive grunge playing requires stable tremolo operation, while hard-hitting parts need reliable stands and heads.",
+                band3Perk: "Endurance under drive",
+                reviewsTitle: "Client Reviews",
+                reviewsSubtitle: "Rate the quality of service at DrumTar Repair",
+                ratingOutOf: "out of 5",
+                beFirstBadge: "Be the first!",
+                formTitle: "Leave a Review",
+                formRatingLabel: "Your Rating",
+                formNameLabel: "Name",
+                formInstLabel: "Serviced Instrument",
+                instGuitar: "Guitar",
+                instBass: "Bass Guitar",
+                instDrums: "Drums",
+                tipLabel: "Leave a tip for the master (100 - 1000 ₸)",
+                formTextLabel: "Your Review",
+                formSubmit: "Publish Review",
+                footerDesc: "Quality repair, setup, and diagnostics for guitars and drum kits. Speed, tonal accuracy, and a flexible approach to every musician.",
+                footerPromo: "Reminder: The -20% discount applies to your first instrument service order!",
+                footerContactsTitle: "Master Contacts",
+                footerDrumLabel: "Drum Repair (WhatsApp / Calls):",
+                footerPrefLabel: "Preferred contact:",
+                footerPrefVal: "Message on WhatsApp",
+                footerCallTimeLabel: "Call hours:",
+                footerCallTimeVal: "15:00 to 22:00",
+                footerPayLabel: "Payment method:",
+                footerPayVal: "Cash preferred",
+                footerInstLabel: "Instagram:",
+                footerWorkTitle: "Working Hours",
+                footerWorkDays: "Mon - Fri: 15:30 - 20:00",
+                footerWeekend: "Sat - Sun: Closed",
+                footerNote: "Write on WhatsApp anytime, calls accepted 15:00 to 22:00. Cash preferred. 30-day warranty.",
+                footerRights: "© 2026 DrumTar Repair. All rights reserved.",
+                footerSlogan: "Great service for guitarists and drummers.",
+                chatTitle: "AI Assistant DrumTar Repair",
+                chatOnline: "Smart AI Online",
+                chatInitial: "Hello! I'm the smart AI assistant for DrumTar Repair 🎸🥁 Ready to answer any questions about guitar, drum setups, and pricing!"
+            }
+        };
+
+        // Текущий язык
+        let currentLang = 'ru';
+
+        function changeLanguage(lang) {
+            currentLang = translations[lang] ? lang : 'ru';
+            const dict = translations[currentLang];
+            
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                if (dict[key]) {
+                    el.innerHTML = dict[key];
+                }
+            });
+
+            document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+                const key = el.getAttribute('data-i18n-placeholder');
+                if (dict[key]) {
+                    el.setAttribute('placeholder', dict[key]);
+                }
+            });
+
+            localStorage.setItem('drumtar_lang', currentLang);
+        }
+
+        // Проверка возвращения пользователя (запоминаем сессию)
+        let isFirstVisit = false;
+
+        function checkUserVisit() {
+            const visited = localStorage.getItem('drumtar_visited');
+            const savedName = localStorage.getItem('drumtar_client_name');
+
+            if (!visited) {
+                isFirstVisit = true;
+                localStorage.setItem('drumtar_visited', 'true');
+                
+                // Показываем акционный баннер первому посетителю
+                const banner = document.getElementById('promoBanner');
+                if (banner) {
+                    banner.classList.remove('hidden');
+                    banner.classList.add('flex');
+                }
+                const footerPromo = document.getElementById('footerPromoText');
+                if (footerPromo) footerPromo.classList.remove('hidden');
+            } else {
+                if (savedName) {
+                    const nameInput = document.getElementById('reviewerName');
+                    if (nameInput && !nameInput.value) {
+                        nameInput.value = savedName;
+                    }
+                }
+            }
+        }
+
+        // Метроном Логика
+        let metronomeInterval = null;
+        let isMetronomePlaying = false;
+        let currentBpm = 120;
+        let beatCount = 0;
+        let timeSignatureValue = 4;
+        let audioCtx = null;
+
+        function setBpm(val) {
+            currentBpm = parseInt(val);
+            const display = document.getElementById('bpmDisplay');
+            const range = document.getElementById('bpmRange');
+            if (display) display.textContent = currentBpm;
+            if (range) range.value = currentBpm;
+
+            if (isMetronomePlaying) {
+                restartMetronome();
+            }
+        }
+
+        function changeBpm(amount) {
+            let newVal = currentBpm + amount;
+            if (newVal < 40) newVal = 40;
+            if (newVal > 800) newVal = 800;
+            setBpm(newVal);
+        }
+
+        let lastTapTime = 0;
+        function tapTempo() {
+            const now = new Date().getTime();
+            if (lastTapTime !== 0) {
+                const diff = now - lastTapTime;
+                let calculatedBpm = Math.round(60000 / diff);
+                if (calculatedBpm >= 40 && calculatedBpm <= 800) {
+                    setBpm(calculatedBpm);
+                }
+            }
+            lastTapTime = now;
+        }
+
+        function toggleMetronome() {
+            if (isMetronomePlaying) {
+                stopMetronome();
+            } else {
+                startMetronome();
+            }
+        }
+
+        function startMetronome() {
+            if (!audioCtx) {
+                audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            }
+            if (audioCtx.state === 'suspended') {
+                audioCtx.resume();
+            }
+
+            isMetronomePlaying = true;
+            beatCount = 0;
+
+            const btnText = document.getElementById('metronomeBtnText');
+            const btnIcon = document.getElementById('metronomeBtnIcon');
+            const toggleBtn = document.getElementById('metronomeToggleBtn');
+
+            if (btnText) btnText.textContent = 'СТОП';
+            if (btnIcon) btnIcon.className = 'fa-solid fa-stop';
+            if (toggleBtn) toggleBtn.classList.remove('bg-amberGold', 'hover:bg-amber-500', 'text-black');
+            if (toggleBtn) toggleBtn.classList.add('bg-red-600', 'hover:bg-red-500', 'text-white');
+
+            const intervalMs = (60 / currentBpm) * 1000;
+            metronomeInterval = setInterval(playClick, intervalMs);
+            playClick();
+        }
+
+        function stopMetronome() {
+            isMetronomePlaying = false;
+            if (metronomeInterval) {
+                clearInterval(metronomeInterval);
+                metronomeInterval = null;
+            }
+
+            const btnText = document.getElementById('metronomeBtnText');
+            const btnIcon = document.getElementById('metronomeBtnIcon');
+            const toggleBtn = document.getElementById('metronomeToggleBtn');
+
+            if (btnText) btnText.textContent = 'СТАРТ';
+            if (btnIcon) btnIcon.className = 'fa-solid fa-play';
+            if (toggleBtn) toggleBtn.classList.remove('bg-red-600', 'hover:bg-red-500', 'text-white');
+            if (toggleBtn) toggleBtn.classList.add('bg-amberGold', 'hover:bg-amber-500', 'text-black');
+
+            const indicator = document.getElementById('metronomeBeatIndicator');
+            if (indicator) {
+                indicator.style.borderColor = '#262225';
+                indicator.style.backgroundColor = '#0F0D0E';
+            }
+        }
+
+        function restartMetronome() {
+            clearInterval(metronomeInterval);
+            const intervalMs = (60 / currentBpm) * 1000;
+            metronomeInterval = setInterval(playClick, intervalMs);
+        }
+
+        function playClick() {
+            const timeSigSelect = document.getElementById('timeSignature');
+            if (timeSigSelect) timeSignatureValue = parseInt(timeSigSelect.value);
+
+            beatCount = (beatCount % timeSignatureValue) + 1;
+
+            const indicator = document.getElementById('metronomeBeatIndicator');
+            if (indicator) {
+                if (beatCount === 1) {
+                    indicator.style.borderColor = '#EF4444';
+                    indicator.style.backgroundColor = 'rgba(239, 68, 68, 0.2)';
+                } else {
+                    indicator.style.borderColor = '#F59E0B';
+                    indicator.style.backgroundColor = 'rgba(245, 158, 11, 0.2)';
+                }
+                setTimeout(() => {
+                    indicator.style.borderColor = '#262225';
+                    indicator.style.backgroundColor = '#0F0D0E';
+                }, 100);
+            }
+
+            const soundType = document.getElementById('metronomeSound').value;
+            if (!audioCtx) return;
+
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+            osc.connect(gain);
+            gain.connect(audioCtx.destination);
+
+            const now = audioCtx.currentTime;
+
+            if (soundType === 'classic') {
+                osc.type = 'sine';
+                osc.frequency.setValueAtTime(beatCount === 1 ? 1200 : 800, now);
+                gain.gain.setValueAtTime(0.3, now);
+                gain.gain.exponentialRampToValueAtTime(0.001, now + 0.05);
+                osc.start(now);
+                osc.stop(now + 0.05);
+            } else if (soundType === 'wood') {
+                osc.type = 'triangle';
+                osc.frequency.setValueAtTime(beatCount === 1 ? 600 : 400, now);
+                gain.gain.setValueAtTime(0.4, now);
+                gain.gain.exponentialRampToValueAtTime(0.001, now + 0.03);
+                osc.start(now);
+                osc.stop(now + 0.03);
+            } else if (soundType === 'snare') {
+                osc.type = 'sawtooth';
+                osc.frequency.setValueAtTime(200, now);
+                gain.gain.setValueAtTime(0.3, now);
+                gain.gain.exponentialRampToValueAtTime(0.001, now + 0.08);
+                osc.start(now);
+                osc.stop(now + 0.08);
+            } else if (soundType === 'arcade') {
+                osc.type = 'square';
+                osc.frequency.setValueAtTime(beatCount === 1 ? 880 : 440, now);
+                gain.gain.setValueAtTime(0.2, now);
+                gain.gain.exponentialRampToValueAtTime(0.001, now + 0.06);
+                osc.start(now);
+                osc.stop(now + 0.06);
+            } else if (soundType === 'meow') {
+                osc.type = 'sine';
+                osc.frequency.setValueAtTime(400, now);
+                osc.frequency.exponentialRampToValueAtTime(700, now + 0.08);
+                gain.gain.setValueAtTime(0.25, now);
+                gain.gain.exponentialRampToValueAtTime(0.001, now + 0.1);
+                osc.start(now);
+                osc.stop(now + 0.1);
+            } else if (soundType === 'quack') {
+                osc.type = 'sawtooth';
+                osc.frequency.setValueAtTime(300, now);
+                osc.frequency.linearRampToValueAtTime(150, now + 0.08);
+                gain.gain.setValueAtTime(0.25, now);
+                gain.gain.exponentialRampToValueAtTime(0.001, now + 0.09);
+                osc.start(now);
+                osc.stop(now + 0.09);
+            } else if (soundType === 'laser') {
+                osc.type = 'sawtooth';
+                osc.frequency.setValueAtTime(1200, now);
+                osc.frequency.exponentialRampToValueAtTime(200, now + 0.1);
+                gain.gain.setValueAtTime(0.2, now);
+                gain.gain.exponentialRampToValueAtTime(0.001, now + 0.1);
+                osc.start(now);
+                osc.stop(now + 0.1);
+            }
+        }
+
+        // Переключение вкладок прайса
+        function switchTab(tabName) {
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+            document.getElementById('tab-' + tabName).classList.add('active');
+
+            ['general', 'guitar', 'bass', 'drums'].forEach(t => {
+                const el = document.getElementById('content-' + t);
+                if (el) el.classList.add('hidden');
+            });
+
+            const activeContent = document.getElementById('content-' + tabName);
+            if (activeContent) activeContent.classList.remove('hidden');
+        }
+
+        // Чайвые и отзывы
+        function setTip(amount) {
+            document.querySelectorAll('.tip-btn').forEach(btn => {
+                btn.classList.remove('border-amberGold', 'text-amberGold');
+                btn.classList.add('border-rock-700', 'text-gray-300');
+            });
+            const selected = document.getElementById('tipBtn' + amount);
+            if (selected) {
+                selected.classList.remove('border-rock-700', 'text-gray-300');
+                selected.classList.add('border-amberGold', 'text-amberGold');
+            }
+            document.getElementById('tipValue').value = amount;
+        }
+
+        // Система капчи для безопасности отзыва
+        let captchaNum1 = 5;
+        let captchaNum2 = 3;
+        let captchaResult = 8;
+
+        function generateCaptcha() {
+            captchaNum1 = Math.floor(Math.random() * 10) + 1;
+            captchaNum2 = Math.floor(Math.random() * 10) + 1;
+            captchaResult = captchaNum1 + captchaNum2;
+            const q = document.getElementById('captchaQuestion');
+            if (q) q.textContent = `${captchaNum1} + ${captchaNum2} = ?`;
+            const err = document.getElementById('captchaError');
+            if (err) err.classList.add('hidden');
+            const input = document.getElementById('captchaInput');
+            if (input) input.value = '';
+        }
+
+        function openCaptchaModal() {
+            generateCaptcha();
+            const modal = document.getElementById('captchaModal');
+            if (modal) {
+                modal.classList.remove('hidden');
+                modal.classList.add('flex');
+            }
+        }
+
+        function closeCaptchaModal() {
+            const modal = document.getElementById('captchaModal');
+            if (modal) {
+                modal.classList.add('hidden');
+                modal.classList.remove('flex');
+            }
+        }
+
+        function verifyCaptcha() {
+            const val = parseInt(document.getElementById('captchaInput').value);
+            if (val === captchaResult) {
+                closeCaptchaModal();
+                submitReviewFinal();
+            } else {
+                const err = document.getElementById('captchaError');
+                if (err) err.classList.remove('hidden');
+            }
+        }
+
+        // Инициализация отзывов
+        let reviewsList = [
+            // Отзывы удалены по вашему запросу
+        ];
+
+        function renderReviews() {
+            const container = document.getElementById('reviewsContainer');
+            if (!container) return;
+
+            if (reviewsList.length === 0) {
+                container.innerHTML = '<div class="bg-rock-800 border border-rock-700 p-6 rounded-2xl text-center text-gray-400">Пока нет отзывов. Станьте первым!</div>';
+                document.getElementById('avgRatingDisplay').textContent = '0.0';
+                document.getElementById('totalReviewsCount').textContent = 'На основе 0 отзывов';
+                
+                // Убираем звезды среднего рейтинга до нуля
+                const avgStars = document.getElementById('avgStarsDisplay');
+                if (avgStars) {
+                    let sHtml = '';
+                    for (let i = 1; i <= 5; i++) {
+                        sHtml += '<i class="fa-regular fa-star text-gray-600"></i>';
+                    }
+                    avgStars.innerHTML = sHtml;
+                }
+                return;
+            }
+
+            let totalRating = 0;
+            let html = '';
+
+            reviewsList.forEach(rev => {
+                totalRating += rev.rating;
+                let starsHtml = '';
+                for (let i = 1; i <= 5; i++) {
+                    if (i <= rev.rating) {
+                        starsHtml += '<i class="fa-solid fa-star"></i>';
+                    } else {
+                        starsHtml += '<i class="fa-regular fa-star text-gray-600"></i>';
+                    }
+                }
+
+                html += `
+                    <div class="bg-rock-800 border border-rock-700 p-5 rounded-2xl space-y-2 hover:border-amberGold/30 transition-all">
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center gap-2">
+                                <div class="w-8 h-8 rounded-full bg-amberGold/20 text-amberGold flex items-center justify-center font-bold text-xs">
+                                    ${rev.name.charAt(0)}
+                                </div>
+                                <div>
+                                    <h4 class="font-bold text-white text-sm">${rev.name}</h4>
+                                    <span class="text-[10px] text-gray-400">${rev.instrument} • ${rev.date}</span>
+                                </div>
+                            </div>
+                            <div class="flex text-amberGold text-xs gap-0.5">
+                                ${starsHtml}
+                            </div>
+                        </div>
+                        <p class="text-xs text-gray-300 leading-relaxed">${rev.text}</p>
+                        ${rev.tip > 0 ? `<div class="text-[11px] text-emerald-400 font-semibold"><i class="fa-solid fa-mug-hot mr-1"></i> Оставлены чаевые мастеру: +${rev.tip} ₸</div>` : ''}
+                    </div>
+                `;
+            });
+
+            container.innerHTML = html;
+
+            const avg = (totalRating / reviewsList.length).toFixed(1);
+            document.getElementById('avgRatingDisplay').textContent = avg;
+            document.getElementById('totalReviewsCount').textContent = `На основе ${reviewsList.length} отзывов`;
+
+            // Обновляем звезды среднего рейтинга
+            const avgStars = document.getElementById('avgStarsDisplay');
+            if (avgStars) {
+                let sHtml = '';
+                const roundedAvg = Math.round(avg);
+                for (let i = 1; i <= 5; i++) {
+                    if (i <= roundedAvg) {
+                        sHtml += '<i class="fa-solid fa-star"></i>';
+                    } else {
+                        sHtml += '<i class="fa-regular fa-star text-gray-600"></i>';
+                    }
+                }
+                avgStars.innerHTML = sHtml;
+            }
+        }
+
+        // Обработка формы отзыва
+        const reviewForm = document.getElementById('reviewForm');
+        if (reviewForm) {
+            reviewForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                openCaptchaModal();
+            });
+        }
+
+        function submitReviewFinal() {
+            const name = document.getElementById('reviewerName').value;
+            const instrument = document.getElementById('reviewerInstrument').value;
+            const rating = parseInt(document.getElementById('ratingValue').value);
+            const text = document.getElementById('reviewerText').value;
+
+            // Сохраняем имя клиента в памяти браузера
+            localStorage.setItem('drumtar_client_name', name);
+
+            const now = new Date();
+            const dateStr = String(now.getDate()).padStart(2, '0') + '.' + String(now.getMonth() + 1).padStart(2, '0') + '.' + now.getFullYear();
+
+            reviewsList.unshift({
+                name,
+                instrument,
+                rating,
+                text,
+                date: dateStr,
+                tip: 0
+            });
+
+            localStorage.setItem('drumtar_reviews', JSON.stringify(reviewsList));
+            renderReviews();
+
+            // Сброс формы
+            document.getElementById('reviewerText').value = '';
+        }
+
+        // Интерактив со звездами в форме отзыва
+        const starRatingContainer = document.getElementById('starRating');
+        if (starRatingContainer) {
+            const stars = starRatingContainer.querySelectorAll('i');
+            stars.forEach((star, idx) => {
+                star.addEventListener('click', () => {
+                    const rating = idx + 1;
+                    document.getElementById('ratingValue').value = rating;
+                    stars.forEach((s, sIdx) => {
+                        if (sIdx < rating) {
+                            s.classList.remove('fa-regular');
+                            s.classList.add('fa-solid');
+                        } else {
+                            s.classList.remove('fa-solid');
+                            s.classList.add('fa-regular');
+                        }
+                    });
+                });
+            });
+        }
+
+        // Виджет чата с ИИ
+        function toggleChat() {
+            const win = document.getElementById('chatWindow');
+            if (win) {
+                win.classList.toggle('hidden');
+            }
+        }
+
+        function openPublishModal() {
+            const m = document.getElementById('publishModal');
+            if (m) {
+                m.classList.remove('hidden');
+                m.classList.add('flex');
+            }
+        }
+
+        function closePublishModal() {
+            const m = document.getElementById('publishModal');
+            if (m) {
+                m.classList.add('hidden');
+                m.classList.remove('flex');
+            }
+        }
+
+        function sendChatMessage(e) {
+            e.preventDefault();
+            const input = document.getElementById('chatInput');
+            const text = input.value.trim();
+            if (!text) return;
+
+            const messagesContainer = document.getElementById('chatMessages');
+
+            // Сообщение пользователя
+            messagesContainer.innerHTML += `
+                <div class="bg-amberGold text-black font-semibold p-2.5 rounded-xl ml-auto max-w-[85%] leading-relaxed">
+                    ${text}
+                </div>
+            `;
+            input.value = '';
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+
+            // Ответ ИИ
+            setTimeout(() => {
+                let reply = "Спасибо за ваш вопрос! По вопросам настройки гитар и барабанов лучше всего написать мастерам в WhatsApp или позвонить с 15:00 до 22:00.";
+                const lower = text.toLowerCase();
+
+                if (lower.includes('цена') || lower.includes('стоимость') || lower.includes('сколько') || lower.includes('прайс')) {
+                    reply = "Диагностика с вызовом стоит 3 000 ₸, выезд мастера — 5 000 ₸. Цены на ремонт гитар и барабанов договорные и зависят от сложности работы!";
+                } else if (lower.includes('телефон') || lower.includes('номер') || lower.includes('связь') || lower.includes('контакт')) {
+                    reply = "Контакты мастеров:\n• Мастер по гитарам №1: +7 707 324 2453\n• Мастер по гитарам №2 (на дому): +7 707 721 0869\n• Бас-гитары: +7 708 679 1898\n• Барабаны: +7 708 170 1233";
+                } else if (lower.includes('время') ||lower.includes('график') || lower.includes('работа')) {
+                    reply = "Мы работаем с понедельника по пятницу с 15:30 до 20:00. Суббота и воскресенье — выходные дни.";
+                } else if (lower.includes('скидк')) {
+                    reply = "Да! У нас действует акция: -20% скидка на первый заказ услуг по настройке и ремонту инструментов!";
+                }
+
+                messagesContainer.innerHTML += `
+                    <div class="bg-rock-700 text-gray-200 p-2.5 rounded-xl max-w-[85%] border border-rock-600 leading-relaxed">
+                        ${reply}
+                    </div>
+                `;
+                messagesContainer.scrollTop = messagesContainer.scrollHeight;
+            }, 600);
+        }
+
+        // Запуск при загрузке страницы
+        window.onload = function() {
+            checkUserVisit();
+            renderReviews();
+            const savedLang = localStorage.getItem('drumtar_lang');
+            if (savedLang) {
+                const sel = document.getElementById('languageSelector');
+                if (sel) sel.value = savedLang;
+                changeLanguage(savedLang);
+            }
+        };
+    </script>
+</body>
+</html>
